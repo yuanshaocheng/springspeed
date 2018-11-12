@@ -1,0 +1,45 @@
+swagger: '2.0'
+info:
+  description: testspring是一个快速构建springboot结构项目的demo
+  version: 1.0.0
+  title: YasinYuan自用springboot构件
+
+basePath: /springspeed
+
+schemes:
+  - http
+
+#认证
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "token"
+    in: "header"
+
+#定义接口数据
+paths:
+  /knowledgebase/checkAnswer2:
+    post:
+      tags:
+      - 根据传递音频文件解码问题文字搜索索引库
+      summary: 根据音频文件搜索索引库
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        description: mp3音频文件
+        in: formData
+        type: file
+        required: true
+      - name: likedegree
+          description: 匹配度（得分）
+          in: query
+          type: number
+          required: false
+          default: 0.5
+      responses:
+        description: ok
+        schema:
+          $ref: '#/definitions/Result'
